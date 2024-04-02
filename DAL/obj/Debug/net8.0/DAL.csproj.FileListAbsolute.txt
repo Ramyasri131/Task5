@@ -1,0 +1,12 @@
+C:\Workspace\Tasks\Task5-Csharp\Solution\DAL\bin\Debug\net8.0\DAL.deps.json
+C:\Workspace\Tasks\Task5-Csharp\Solution\DAL\bin\Debug\net8.0\DAL.dll
+C:\Workspace\Tasks\Task5-Csharp\Solution\DAL\bin\Debug\net8.0\DAL.pdb
+C:\Workspace\Tasks\Task5-Csharp\Solution\DAL\obj\Debug\net8.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Workspace\Tasks\Task5-Csharp\Solution\DAL\obj\Debug\net8.0\DAL.AssemblyInfoInputs.cache
+C:\Workspace\Tasks\Task5-Csharp\Solution\DAL\obj\Debug\net8.0\DAL.AssemblyInfo.cs
+C:\Workspace\Tasks\Task5-Csharp\Solution\DAL\obj\Debug\net8.0\DAL.csproj.CoreCompileInputs.cache
+C:\Workspace\Tasks\Task5-Csharp\Solution\DAL\obj\Debug\net8.0\DAL.sourcelink.json
+C:\Workspace\Tasks\Task5-Csharp\Solution\DAL\obj\Debug\net8.0\DAL.dll
+C:\Workspace\Tasks\Task5-Csharp\Solution\DAL\obj\Debug\net8.0\refint\DAL.dll
+C:\Workspace\Tasks\Task5-Csharp\Solution\DAL\obj\Debug\net8.0\DAL.pdb
+C:\Workspace\Tasks\Task5-Csharp\Solution\DAL\obj\Debug\net8.0\ref\DAL.dll

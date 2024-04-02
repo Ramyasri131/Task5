@@ -1,0 +1,133 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Workspace\\Tasks\\Task5\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{BB21AEDE-444A-4F01-AA8D-0D2C721AE705}|DAL\\DAL.csproj|c:\\workspace\\tasks\\task5\\dal\\constant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BB21AEDE-444A-4F01-AA8D-0D2C721AE705}|DAL\\DAL.csproj|solutionrelative:dal\\constant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CC081A2B-A99E-482C-A48A-10D9CFC05ED0}|BLL\\BLL.csproj|c:\\workspace\\tasks\\task5\\bll\\useractionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CC081A2B-A99E-482C-A48A-10D9CFC05ED0}|BLL\\BLL.csproj|solutionrelative:bll\\useractionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CC081A2B-A99E-482C-A48A-10D9CFC05ED0}|BLL\\BLL.csproj|c:\\workspace\\tasks\\task5\\bll\\inputvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CC081A2B-A99E-482C-A48A-10D9CFC05ED0}|BLL\\BLL.csproj|solutionrelative:bll\\inputvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CC081A2B-A99E-482C-A48A-10D9CFC05ED0}|BLL\\BLL.csproj|c:\\workspace\\tasks\\task5\\bll\\helpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CC081A2B-A99E-482C-A48A-10D9CFC05ED0}|BLL\\BLL.csproj|solutionrelative:bll\\helpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91656345-153C-409B-B76C-E14CF98B6453}|presentationLayer\\presentationLayer.csproj|c:\\workspace\\tasks\\task5\\presentationlayer\\dataprinter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91656345-153C-409B-B76C-E14CF98B6453}|presentationLayer\\presentationLayer.csproj|solutionrelative:presentationlayer\\dataprinter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91656345-153C-409B-B76C-E14CF98B6453}|presentationLayer\\presentationLayer.csproj|c:\\workspace\\tasks\\task5\\presentationlayer\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91656345-153C-409B-B76C-E14CF98B6453}|presentationLayer\\presentationLayer.csproj|solutionrelative:presentationlayer\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91656345-153C-409B-B76C-E14CF98B6453}|presentationLayer\\presentationLayer.csproj|c:\\workspace\\tasks\\task5\\presentationlayer\\menumanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91656345-153C-409B-B76C-E14CF98B6453}|presentationLayer\\presentationLayer.csproj|solutionrelative:presentationlayer\\menumanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Constant.cs",
+              "DocumentMoniker": "C:\\Workspace\\Tasks\\Task5\\DAL\\Constant.cs",
+              "RelativeDocumentMoniker": "DAL\\Constant.cs",
+              "ToolTip": "C:\\Workspace\\Tasks\\Task5\\DAL\\Constant.cs",
+              "RelativeToolTip": "DAL\\Constant.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-02T05:44:22.294Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MenuManager.cs",
+              "DocumentMoniker": "C:\\Workspace\\Tasks\\Task5\\presentationLayer\\MenuManager.cs",
+              "RelativeDocumentMoniker": "presentationLayer\\MenuManager.cs",
+              "ToolTip": "C:\\Workspace\\Tasks\\Task5\\presentationLayer\\MenuManager.cs",
+              "RelativeToolTip": "presentationLayer\\MenuManager.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-02T05:42:05.318Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DataPrinter.cs",
+              "DocumentMoniker": "C:\\Workspace\\Tasks\\Task5\\presentationLayer\\DataPrinter.cs",
+              "RelativeDocumentMoniker": "presentationLayer\\DataPrinter.cs",
+              "ToolTip": "C:\\Workspace\\Tasks\\Task5\\presentationLayer\\DataPrinter.cs",
+              "RelativeToolTip": "presentationLayer\\DataPrinter.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-02T05:42:02.027Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Workspace\\Tasks\\Task5\\presentationLayer\\Program.cs",
+              "RelativeDocumentMoniker": "presentationLayer\\Program.cs",
+              "ToolTip": "C:\\Workspace\\Tasks\\Task5\\presentationLayer\\Program.cs",
+              "RelativeToolTip": "presentationLayer\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-02T05:40:25.298Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserActionHandler.cs",
+              "DocumentMoniker": "C:\\Workspace\\Tasks\\Task5\\BLL\\UserActionHandler.cs",
+              "RelativeDocumentMoniker": "BLL\\UserActionHandler.cs",
+              "ToolTip": "C:\\Workspace\\Tasks\\Task5\\BLL\\UserActionHandler.cs",
+              "RelativeToolTip": "BLL\\UserActionHandler.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-02T05:37:19.126Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "InputValidator.cs",
+              "DocumentMoniker": "C:\\Workspace\\Tasks\\Task5\\BLL\\InputValidator.cs",
+              "RelativeDocumentMoniker": "BLL\\InputValidator.cs",
+              "ToolTip": "C:\\Workspace\\Tasks\\Task5\\BLL\\InputValidator.cs",
+              "RelativeToolTip": "BLL\\InputValidator.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAGoAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-02T05:36:39.6Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Helpers.cs",
+              "DocumentMoniker": "C:\\Workspace\\Tasks\\Task5\\BLL\\Helpers.cs",
+              "RelativeDocumentMoniker": "BLL\\Helpers.cs",
+              "ToolTip": "C:\\Workspace\\Tasks\\Task5\\BLL\\Helpers.cs",
+              "RelativeToolTip": "BLL\\Helpers.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-02T05:34:21.539Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
