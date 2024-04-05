@@ -12,14 +12,14 @@ namespace EmployeeDirectory.InputHandling
 {
     public class EmployeeServices
     {
-        private DataPrinter printer = new();
-        private EmployeeManagementSystem employeeManagementSystem = new();
-        private string employeeJsonData = File.ReadAllText("C:\\Workspace\\Tasks\\Task5\\DAL\\Employee.json");
+        private readonly DisplayHelper _printer = new();
+        private readonly EmployeeManagementSystem _employeeManagementSystem = new();
+        private readonly string _employeeJsonData = File.ReadAllText("C:\\Workspace\\Tasks\\Task5CloneCopy\\Task5\\DataAccessLayer\\Employee.json");
         public void GetEmployeeInput()
         {
-            List<Employee> employees = JsonSerializer.Deserialize<List<Employee>>(employeeJsonData)!;
-            int NoOfEmployees = employees.Count + 1;
-            string EmpId = string.Format("{0:0000}", NoOfEmployees);
+            List<Employee> employees = JsonSerializer.Deserialize<List<Employee>>(_employeeJsonData)!;
+            int noOfEmployees = employees.Count + 1;
+            string EmpId = string.Format("{0:0000}", noOfEmployees);
             EmpId = "TZ" + EmpId;
             Helpers.Print("Enter First Name:");
             string? FirstName = Console.ReadLine();
@@ -62,7 +62,7 @@ namespace EmployeeDirectory.InputHandling
             List<string> InvalidInputs = validator.IsValidEmployee(employeeInput);
             if (InvalidInputs.Count == 0)
             {
-                employeeManagementSystem.AddEmployee(employeeInput);
+                _employeeManagementSystem.AddEmployee(employeeInput);
             }
             else
             {
@@ -76,10 +76,10 @@ namespace EmployeeDirectory.InputHandling
 
         public void DisplayEmployees()
         {
-            if (!string.IsNullOrEmpty(employeeJsonData))
+            if (!string.IsNullOrEmpty(_employeeJsonData))
             {
-                List<Employee> employeeData = employeeManagementSystem.GetAllEmployees(employeeJsonData);
-                printer.PrintEmployeesData(employeeData);
+                List<Employee> employeeData = _employeeManagementSystem.GetAllEmployees(_employeeJsonData);
+                _printer.PrintEmployeesData(employeeData);
             }
             else
             {
@@ -89,16 +89,16 @@ namespace EmployeeDirectory.InputHandling
 
         public void DisplayEmployee()
         {
-            if (!string.IsNullOrEmpty(employeeJsonData))
+            if (!string.IsNullOrEmpty(_employeeJsonData))
             {
                 Helpers.Print("Enter Employee Id");
                 string? enteredEmpId = Console.ReadLine();
                 enteredEmpId = enteredEmpId?.ToUpper();
-                List<Employee> employeeData = JsonSerializer.Deserialize<List<Employee>>(employeeJsonData)!;
+                List<Employee> employeeData = JsonSerializer.Deserialize<List<Employee>>(_employeeJsonData)!;
                 var employee = employeeData.Single(e => e.Id == enteredEmpId);
                 if (employee is not null)
                 {
-                    printer.PrintEmployeeData(employee);
+                    _printer.PrintEmployeeData(employee);
                 }
                 else
                 {
@@ -113,7 +113,7 @@ namespace EmployeeDirectory.InputHandling
         }
         public void EditEmployee()
         {
-            if (string.IsNullOrEmpty(employeeJsonData))
+            if (string.IsNullOrEmpty(_employeeJsonData))
             {
                 Helpers.Print("DataBase is Empty");
             }
@@ -124,7 +124,7 @@ namespace EmployeeDirectory.InputHandling
                 if (!string.IsNullOrEmpty(enteredEmpId))
                 {
                     enteredEmpId = enteredEmpId?.ToUpper();
-                    List<Employee> employeeData = JsonSerializer.Deserialize<List<Employee>>(employeeJsonData)!;
+                    List<Employee> employeeData = JsonSerializer.Deserialize<List<Employee>>(_employeeJsonData)!;
                     Employee? employee = employeeData.Single(e => e.Id == enteredEmpId);
                     if (employee is not null)
                     {
@@ -166,7 +166,7 @@ namespace EmployeeDirectory.InputHandling
                             {
                                 dataToEdit = GetValidDetails(label);
                             }
-                            employeeManagementSystem.EditEmployeeDetails(dataToEdit, employeeJsonData, enteredEmpId, selectedOption);
+                            _employeeManagementSystem.EditEmployeeDetails(dataToEdit, _employeeJsonData, enteredEmpId, selectedOption);
                         }
                         else
                         {
@@ -290,23 +290,23 @@ namespace EmployeeDirectory.InputHandling
         }
         public void DeleteEmployee()
         {
-            if (string.IsNullOrEmpty(employeeJsonData))
+            if (string.IsNullOrEmpty(_employeeJsonData))
             {
                 Helpers.Print("DataBase is Empty");
             }
             else
             {
-                List<Employee> employees = JsonSerializer.Deserialize<List<Employee>>(employeeJsonData)!;
+                List<Employee> employees = JsonSerializer.Deserialize<List<Employee>>(_employeeJsonData)!;
                 Helpers.Print("Enter Employee Id To Edit");
                 string? enteredEmpId = Console.ReadLine();
                 if (!string.IsNullOrEmpty(enteredEmpId))
                 {
                     enteredEmpId = enteredEmpId!.ToUpper();
-                    List<Employee> employeeData = JsonSerializer.Deserialize<List<Employee>>(employeeJsonData)!;
+                    List<Employee> employeeData = JsonSerializer.Deserialize<List<Employee>>(_employeeJsonData)!;
                     Employee? employee = employeeData.Single(e => e.Id == enteredEmpId);
                     if (employee is not null)
                     {
-                        employeeManagementSystem.DeleteEmployee(enteredEmpId, employees);
+                        _employeeManagementSystem.DeleteEmployee(enteredEmpId, employees);
                     }
                     else
                     {

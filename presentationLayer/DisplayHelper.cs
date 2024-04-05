@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace EmployeeDirectory.Printing
 {
-    public class DataPrinter
+    public class DisplayHelper
     {
         public void PrintEmployeesData(List<Employee> employeeData)
         {
@@ -47,7 +47,6 @@ namespace EmployeeDirectory.Printing
                     Helpers.Print("==========================================");
                 }
             }
-
         }
     }
 }

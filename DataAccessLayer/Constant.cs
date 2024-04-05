@@ -67,15 +67,15 @@ namespace EmployeeDirectory.ConstantData
 
         public static void GetRoles()
         {
-            List<string> RolesData = new();
-            string roleJsonData = File.ReadAllText("C:\\Workspace\\Tasks\\Task5\\DataAccessLayer\\RoleData.json");
+            List<string> rolesData = new();
+            string roleJsonData = File.ReadAllText("C:\\Workspace\\Tasks\\Task5CloneCopy\\Task5\\DataAccessLayer\\RoleData.json");
             List<Role> RoleData = JsonSerializer.Deserialize<List<Role>>(roleJsonData)!;
             foreach (Role item in RoleData)
             {
-                RolesData.Add(item.Name);
+                rolesData.Add(item.Name);
             }
             int i = 1;
-            foreach (string roleName in RolesData)
+            foreach (string roleName in rolesData)
             {
                 Roles.Add(i,roleName);
                 i++;

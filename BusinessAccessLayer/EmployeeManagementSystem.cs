@@ -6,13 +6,13 @@ namespace EmployeeDirectory.EmployeeManagement
 {
     public class EmployeeManagementSystem
     {
-        public void AddEmployee(Employee employee)
+        public  void AddEmployee(Employee employee)
         {
-            string employeeJsonData = File.ReadAllText("C:\\Workspace\\Tasks\\Task5\\DAL\\EmployeeData.json");
+            string employeeJsonData = File.ReadAllText("C:\\Workspace\\Tasks\\Task5CloneCopy\\Task5\\DataAccessLayer\\Employee.json");
             List<Employee> employees = string.IsNullOrEmpty(employeeJsonData)? new() : JsonSerializer.Deserialize<List<Employee>>(employeeJsonData)!;
             employees.Add(employee);
             string json = JsonSerializer.Serialize(employees);
-            File.WriteAllText("C:\\Workspace\\Tasks\\Task5\\DAL\\EmployeeData.json", json);
+            File.WriteAllText("C:\\Workspace\\Tasks\\Task5CloneCopy\\Task5\\DataAccessLayer\\Employee.json", json);
             return;
         }
 
@@ -42,16 +42,16 @@ namespace EmployeeDirectory.EmployeeManagement
             Employee employee = employees.Single(e => e.Id!.Equals(enteredEmpId));
             chageEnteredData[selectedOption - 1](employee, dataToEdit);
             string json = JsonSerializer.Serialize(employees);
-            File.WriteAllText("C:\\Workspace\\Tasks\\Task5\\DAL\\EmployeeData.json", json);
+            File.WriteAllText("C:\\Workspace\\Tasks\\Task5CloneCopy\\Task5\\DataAccessLayer\\Employee.json", json);
         }
 
         public void DeleteEmployee(string enteredEmpId, List<Employee> employees)
         {
-            string employeeJsonData = File.ReadAllText("C:\\Workspace\\Tasks\\Task5\\DAL\\EmployeeData.json");
+            string employeeJsonData = File.ReadAllText("C:\\Workspace\\Tasks\\Task5CloneCopy\\Task5\\DataAccessLayer\\Employee.json");
             Employee employee = employees.Single(e => e.Id!.Equals(enteredEmpId));
             employees.Remove(employee);
             string json = JsonSerializer.Serialize(employees);
-            File.WriteAllText("C:\\Workspace\\Tasks\\Task5\\DAL\\EmployeeData.json", json);
+            File.WriteAllText("C:\\Workspace\\Tasks\\Task5CloneCopy\\Task5\\DataAccessLayer\\Employee.json", json);
         }
     }
 }

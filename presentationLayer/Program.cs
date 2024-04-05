@@ -10,6 +10,5 @@ namespace EmployeeDirectory
             MenuManager displayOptions = new();
             displayOptions.DisplayMainMenu();
         }
-
     }
 }

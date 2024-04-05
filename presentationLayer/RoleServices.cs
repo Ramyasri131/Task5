@@ -7,13 +7,13 @@ using EmployeeDirectory.Printing;
 namespace EmployeeDirectory.RoleDetails
 {
     public class RoleServices
-    { 
-        private RoleManagementSystem _roleManagementSystem= new();
-        private DataPrinter printer = new();
+    {
+        private readonly RoleManagementSystem _roleManagementSystem= new();
+        private readonly DisplayHelper _printer = new();
         public void CollectRoleDetails()
         {
-            string roleName = string.Empty;
             Helpers.Print("Enter RoleName");
+            string roleName;
             while (true)
             {
                 roleName = Console.ReadLine()!;
@@ -35,14 +35,14 @@ namespace EmployeeDirectory.RoleDetails
             Role roleInput = new()
             {
                 Name = roleName,
-                location = location,
-                department = department,
-                description = description
+                Location = location,
+                Department = department,
+                Description = description
             };
             _roleManagementSystem.AddRole(roleInput);
             Constant.GetRoles();
         }
-        public string SaveValidDetails(string label, Dictionary<int, string> list)
+        public static string SaveValidDetails(string label, Dictionary<int, string> list)
         {
             foreach (KeyValuePair<int, string> item in list)
             {
@@ -65,7 +65,7 @@ namespace EmployeeDirectory.RoleDetails
         {
             List<Role>? roleData;
             roleData = _roleManagementSystem.GetRoles();
-            printer.PrintRoleData(roleData);
+            _printer.PrintRoleData(roleData);
         }
     }
 }
