@@ -1,6 +1,6 @@
-﻿using EmployeeDirectory.RoleData;
+﻿using EmployeeDirectory.DLL.Models;
 using System.Text.Json;
-namespace EmployeeDirectory.ConstantData
+namespace EmployeeDirectory.DLL.StaticData
 {
     public static class Constant
     {
@@ -68,7 +68,7 @@ namespace EmployeeDirectory.ConstantData
         public static void GetRoles()
         {
             List<string> rolesData = new();
-            string roleJsonData = File.ReadAllText("C:\\Workspace\\Tasks\\Task5CloneCopy\\Task5\\DataAccessLayer\\RoleData.json");
+            string roleJsonData = File.ReadAllText("C:\\Workspace\\Tasks\\Task5CloneCopy\\Task5\\DataAccessLayer\\StaticData\\Role.json");
             List<Role> RoleData = JsonSerializer.Deserialize<List<Role>>(roleJsonData)!;
             foreach (Role item in RoleData)
             {
@@ -77,7 +77,7 @@ namespace EmployeeDirectory.ConstantData
             int i = 1;
             foreach (string roleName in rolesData)
             {
-                Roles.Add(i,roleName);
+                Roles.Add(i, roleName);
                 i++;
             }
         }

@@ -1,12 +1,11 @@
-﻿using EmployeeDirectory.ConstantData;
-using EmployeeDirectory.Utilities;
-using EmployeeDirectory.InputHandling;
-using EmployeeDirectory.RoleDetails;
+﻿using EmployeeDirectory.Utilities;
+using EmployeeDirectory.DLL.StaticData;
+using EmployeeDirectory.Services;
 
 //to display the options
-namespace EmployeeDirectory.MenuHandler
+namespace EmployeeDirectory.Manager
 {
-    public class MenuManager
+    public class Menu
     {
         public void DisplayMainMenu()
         {
@@ -18,9 +17,9 @@ namespace EmployeeDirectory.MenuHandler
             Helpers.Print("");
             Helpers.Print("Enter Your Choice:");
             string? enteredOption = Console.ReadLine();
-            if (int.TryParse(enteredOption, out _))
+            try
             {
-                int selectedOption = int.Parse(enteredOption);
+               int selectedOption = int.Parse(enteredOption!);
                 switch (selectedOption)
                 {
                     case 1:
@@ -37,9 +36,10 @@ namespace EmployeeDirectory.MenuHandler
                         break;
                 }
             }
-            else
+            catch (FormatException e)
             {
-                Helpers.Print("Enter Integer");
+               Helpers.Print(e.ToString());
+               DisplayMainMenu();
             }
         }
         public void DisplayEmployeeManagementMenu()
@@ -51,12 +51,12 @@ namespace EmployeeDirectory.MenuHandler
             }
             Helpers.Print("");
             Helpers.Print("Enter your choice:");
-            EmployeeServices employeeInputCollector = new();
+            Employee employeeInputCollector = new();
             string? enteredValue = Console.ReadLine();
-            if (int.TryParse(enteredValue, out _))
+            try
             {
-                int selectedTask = int.Parse(enteredValue);
-                switch (selectedTask)
+                int selectedOption = int.Parse(enteredValue!);
+                switch (selectedOption)
                 {
                     case 1:
                         employeeInputCollector.GetEmployeeInput();
@@ -81,9 +81,9 @@ namespace EmployeeDirectory.MenuHandler
                         break;
                 }
             }
-            else
+            catch (FormatException e)
             {
-                Helpers.Print("Enter Integer");
+                Helpers.Print(e.ToString());
             }
             DisplayEmployeeManagementMenu();
         }
@@ -96,12 +96,12 @@ namespace EmployeeDirectory.MenuHandler
             }
             Helpers.Print("");
             Helpers.Print("Enter your choice:");
-            RoleServices roleDetailsCollector = new();
+            Role roleDetailsCollector = new();
             string? enteredValue = Console.ReadLine();
-            if (int.TryParse(enteredValue, out _))
+            try
             {
-                int selectedTask = int.Parse(enteredValue);
-                switch (selectedTask)
+                int selectedOption = int.Parse(enteredValue!);
+                switch (selectedOption)
                 {
                     case 1:
                         roleDetailsCollector.CollectRoleDetails();
@@ -117,9 +117,9 @@ namespace EmployeeDirectory.MenuHandler
                         break;
                 }
             }
-            else
+            catch (FormatException e)
             {
-                Helpers.Print("Enter Integer");
+                Helpers.Print(e.ToString());
             }
             DisplayRoleManagementMenu();
         }

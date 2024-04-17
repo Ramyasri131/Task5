@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BusinessAccessLayer\BusinessAccessLayer.csproj" />
+    <ProjectReference Include="..\BusinessAccessLayer\EmployeeDirectory.BAL.csproj" />
   </ItemGroup>
 
   <ItemGroup>

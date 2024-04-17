@@ -1,9 +1,7 @@
-﻿using EmployeeDirectory.EmployeeData;
-using EmployeeDirectory.RoleData;
-using EmployeeDirectory.Utilities;
+﻿using EmployeeDirectory.DLL.Models;
 using System.Reflection;
 
-namespace EmployeeDirectory.Printing
+namespace EmployeeDirectory.Utilities
 {
     public class DisplayHelper
     {
@@ -21,11 +19,12 @@ namespace EmployeeDirectory.Printing
                 }
             }
         }
+
         public void PrintEmployeeData(Employee employee)
         {
             foreach (PropertyInfo propertyInfo in employee.GetType().GetProperties())
             {
-                Helpers.Print($"{propertyInfo.Name}:{propertyInfo.GetValue((employee))}");
+                Helpers.Print($"{propertyInfo.Name}:{propertyInfo.GetValue(employee)}");
             }
             Helpers.Print("=============================================");
         }
@@ -42,7 +41,7 @@ namespace EmployeeDirectory.Printing
                 {
                     foreach (PropertyInfo propertyInfo in item.GetType().GetProperties())
                     {
-                        Helpers.Print($"{propertyInfo.Name}:{propertyInfo.GetValue((item))}");                        
+                        Helpers.Print($"{propertyInfo.Name}:{propertyInfo.GetValue(item)}");
                     }
                     Helpers.Print("==========================================");
                 }

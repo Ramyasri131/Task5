@@ -1,13 +1,13 @@
-﻿using EmployeeDirectory.MenuHandler;
-using EmployeeDirectory.ConstantData;
+﻿using EmployeeDirectory.DLL.StaticData;
+using EmployeeDirectory.Manager;
 namespace EmployeeDirectory
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Constant.GetRoles();
-            MenuManager displayOptions = new();
+            //Constant.GetRoles();
+            Menu displayOptions = new();
             displayOptions.DisplayMainMenu();
         }
     }

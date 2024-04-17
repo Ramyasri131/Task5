@@ -1,4 +1,4 @@
-﻿namespace EmployeeDirectory.RoleData
+﻿namespace EmployeeDirectory.DLL.Models
 {
     public class Role
     {

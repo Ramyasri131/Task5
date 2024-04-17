@@ -1,30 +1,28 @@
-﻿using EmployeeDirectory.RoleData;
-using EmployeeDirectory.Utilities;
-using EmployeeDirectory.RoleManagement;
-using EmployeeDirectory.ConstantData;
-using EmployeeDirectory.Printing;
+﻿using EmployeeDirectory.Utilities;
+using EmployeeDirectory.DLL.StaticData;
 
-namespace EmployeeDirectory.RoleDetails
+namespace EmployeeDirectory.Services
 {
-    public class RoleServices
+    public class Role
     {
-        private readonly RoleManagementSystem _roleManagementSystem= new();
+        private readonly BAL.Providers.Role _roleManagementSystem = new();
         private readonly DisplayHelper _printer = new();
         public void CollectRoleDetails()
         {
             Helpers.Print("Enter RoleName");
-            string roleName;
-            while (true)
+            string roleName = "";
+            try
             {
                 roleName = Console.ReadLine()!;
-                if (string.IsNullOrEmpty(roleName))
+                if (string.IsNullOrEmpty(roleName) || string.IsNullOrEmpty(roleName))
                 {
-                    Helpers.Print("Enter RoleName");
+                    throw new ArgumentException();
                 }
-                else
-                {
-                    break;
-                }
+            }
+             catch (ArgumentException ex)
+            {
+                Helpers.Print(ex.ToString());
+                CollectRoleDetails();
             }
             Helpers.Print("select department");
             string department = SaveValidDetails("department", Constant.Departments);
@@ -32,7 +30,7 @@ namespace EmployeeDirectory.RoleDetails
             string? description = Console.ReadLine();
             Helpers.Print("Select Location");
             string location = SaveValidDetails("location", Constant.Locations);
-            Role roleInput = new()
+            DLL.Models.Role roleInput = new()
             {
                 Name = roleName,
                 Location = location,
@@ -40,7 +38,7 @@ namespace EmployeeDirectory.RoleDetails
                 Description = description
             };
             _roleManagementSystem.AddRole(roleInput);
-            Constant.GetRoles();
+
         }
         public static string SaveValidDetails(string label, Dictionary<int, string> list)
         {
@@ -49,21 +47,13 @@ namespace EmployeeDirectory.RoleDetails
                 Helpers.Print(item.Key + " " + item.Value);
             }
             string? enteredKey = Console.ReadLine();
-            if (int.TryParse(enteredKey, out _))
-            {
-                int selectedKey = int.Parse(enteredKey);
-                return list[selectedKey];
-            }
-            else
-            {
-                Helpers.Print("Enter Numerical option");
-                return SaveValidDetails(label, list);
-            }
+            int selectedKey = int.Parse(enteredKey!);
+            return list[selectedKey];
         }
 
         public void DisplayRoles()
         {
-            List<Role>? roleData;
+            List<DLL.Models.Role>? roleData;
             roleData = _roleManagementSystem.GetRoles();
             _printer.PrintRoleData(roleData);
         }
