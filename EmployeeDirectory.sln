@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeDirectory", "presentationLayer\EmployeeDirectory.csproj", "{91656345-153C-409B-B76C-E14CF98B6453}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeDirectory.DLL", "DataAccessLayer\EmployeeDirectory.DLL.csproj", "{B5E866CE-E725-4940-A664-7732FF4FA063}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeDirectory.DAL", "DataAccessLayer\EmployeeDirectory.DAL.csproj", "{B5E866CE-E725-4940-A664-7732FF4FA063}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeDirectory.BAL", "BusinessAccessLayer\EmployeeDirectory.BAL.csproj", "{32A16E11-0D0E-4E56-9B42-AF03C62AA3BA}"
 EndProject

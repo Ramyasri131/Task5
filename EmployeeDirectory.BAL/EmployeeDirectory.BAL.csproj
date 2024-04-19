@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataAccessLayer\EmployeeDirectory.DLL.csproj" />
+    <ProjectReference Include="..\DataAccessLayer\EmployeeDirectory.DAL.csproj" />
   </ItemGroup>
 
 </Project>
