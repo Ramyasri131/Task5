@@ -1,23 +1,29 @@
 ﻿using System.Text.Json;
+using EmployeeDirectory.BAL.Exceptions;
+using EmployeeDirectory.DLL.Data;
 
 namespace EmployeeDirectory.BAL.Providers
 {
-    public class Role
+    public static class Role
     {
-        public readonly string roleJsonData = File.ReadAllText("C:\\Workspace\\Tasks\\Task5CloneCopy\\Task5\\DataAccessLayer\\StaticData\\Role.json");
-
-        public void AddRole(DLL.Models.Role roleInput)
+        public static void AddRole(DLL.Models.Role roleInput)
         {
-            List<DLL.Models.Role> inputRoleData = JsonSerializer.Deserialize<List<DLL.Models.Role>>(roleJsonData)!;
+            if(string.IsNullOrEmpty(roleInput.Name) || string.IsNullOrWhiteSpace(roleInput.Name))
+            {
+                throw new InvalidRoleName();
+            }
+            List<DLL.Models.Role> inputRoleData = Reader.GetRoleDetails();
             inputRoleData.Add(roleInput);
-            string inputTojson = JsonSerializer.Serialize(inputRoleData);
-            File.WriteAllText("C:\\Workspace\\Tasks\\Task5CloneCopy\\Task5\\DataAccessLayer\\StaticData\\Role.json", inputTojson);
+            Writer.WriteRoleData(inputRoleData);
         }
 
-        public List<DLL.Models.Role>? GetRoles()
+        public static List<DLL.Models.Role>? GetRoles()
         {
-            List<DLL.Models.Role>? inputRoleData;
-            inputRoleData = string.IsNullOrEmpty(roleJsonData) ? null : JsonSerializer.Deserialize<List<DLL.Models.Role>>(roleJsonData); ;
+            List<DLL.Models.Role>? inputRoleData = Reader.GetRoleDetails();
+            if (inputRoleData.Count == 0)
+            {
+                throw new EmptyDataBase();
+            }
             return inputRoleData;
         }
     }

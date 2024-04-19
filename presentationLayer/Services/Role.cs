@@ -1,43 +1,50 @@
 ﻿using EmployeeDirectory.Utilities;
 using EmployeeDirectory.DLL.StaticData;
+using EmployeeDirectory.BAL.Exceptions;
 
 namespace EmployeeDirectory.Services
 {
-    public class Role
+    public interface IRoleService
     {
-        private readonly BAL.Providers.Role _roleManagementSystem = new();
-        private readonly DisplayHelper _printer = new();
-        public void CollectRoleDetails()
+        public void CollectRoleDetails();
+        public void DisplayRoles();
+    }
+
+    public class Role:IRoleService
+    {
+        public  void CollectRoleDetails()
         {
             Helpers.Print("Enter RoleName");
-            string roleName = "";
+            string? roleName = Console.ReadLine();
+            DLL.Models.Role roleInput;
             try
             {
-                roleName = Console.ReadLine()!;
-                if (string.IsNullOrEmpty(roleName) || string.IsNullOrEmpty(roleName))
+                Helpers.Print("select department");
+                string department = SaveValidDetails("department", Constant.Departments);
+                Helpers.Print("Enter Description");
+                string? description = Console.ReadLine();
+                Helpers.Print("Select Location");
+                string location = SaveValidDetails("location", Constant.Locations);
+                roleInput = new()
                 {
-                    throw new ArgumentException();
-                }
+                    Name = roleName,
+                    Location = location,
+                    Department = department,
+                    Description = description
+                };
             }
-             catch (ArgumentException ex)
+            catch (FormatException)
             {
-                Helpers.Print(ex.ToString());
-                CollectRoleDetails();
+                throw;
             }
-            Helpers.Print("select department");
-            string department = SaveValidDetails("department", Constant.Departments);
-            Helpers.Print("Enter Description");
-            string? description = Console.ReadLine();
-            Helpers.Print("Select Location");
-            string location = SaveValidDetails("location", Constant.Locations);
-            DLL.Models.Role roleInput = new()
+            try
             {
-                Name = roleName,
-                Location = location,
-                Department = department,
-                Description = description
-            };
-            _roleManagementSystem.AddRole(roleInput);
+                BAL.Providers.Role.AddRole(roleInput);
+            }
+            catch (InvalidRoleName)
+            {
+                throw;
+            }
 
         }
         public static string SaveValidDetails(string label, Dictionary<int, string> list)
@@ -46,16 +53,31 @@ namespace EmployeeDirectory.Services
             {
                 Helpers.Print(item.Key + " " + item.Value);
             }
-            string? enteredKey = Console.ReadLine();
-            int selectedKey = int.Parse(enteredKey!);
-            return list[selectedKey];
+            int selectedKey=0;
+            try
+            {
+                selectedKey = int.Parse(Console.ReadLine()!);
+                return list[selectedKey];
+            }
+            catch (FormatException)
+            {
+                throw;
+            }
         }
 
         public void DisplayRoles()
         {
             List<DLL.Models.Role>? roleData;
-            roleData = _roleManagementSystem.GetRoles();
-            _printer.PrintRoleData(roleData);
+            try
+            {
+                roleData = BAL.Providers.Role.GetRoles();
+                DisplayHelper.PrintRoleData(roleData);
+            }
+            catch(EmptyDataBase)
+            {
+                throw;
+            }
+           
         }
     }
 }

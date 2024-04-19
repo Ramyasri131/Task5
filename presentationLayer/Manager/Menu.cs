@@ -2,11 +2,26 @@
 using EmployeeDirectory.DLL.StaticData;
 using EmployeeDirectory.Services;
 
-//to display the options
 namespace EmployeeDirectory.Manager
 {
-    public class Menu
+    public interface IMenuManager
     {
+        public void DisplayMainMenu();
+        public void DisplayEmployeeManagementMenu();
+        public void DisplayRoleManagementMenu();
+    }
+
+    public class Menu:IMenuManager
+    {
+        private readonly IEmployeeService _employeeService;
+        private readonly IRoleService _roleService;
+
+        public Menu(IEmployeeService employeeService, IRoleService roleService)
+        {
+            _employeeService = employeeService;
+            _roleService = roleService;
+        }
+       
         public void DisplayMainMenu()
         {
             Helpers.Print("Main Menu");
@@ -39,9 +54,10 @@ namespace EmployeeDirectory.Manager
             catch (FormatException e)
             {
                Helpers.Print(e.ToString());
-               DisplayMainMenu();
+                DisplayMainMenu();
             }
         }
+
         public void DisplayEmployeeManagementMenu()
         {
             Helpers.Print("Employee Management");
@@ -51,7 +67,6 @@ namespace EmployeeDirectory.Manager
             }
             Helpers.Print("");
             Helpers.Print("Enter your choice:");
-            Employee employeeInputCollector = new();
             string? enteredValue = Console.ReadLine();
             try
             {
@@ -59,19 +74,19 @@ namespace EmployeeDirectory.Manager
                 switch (selectedOption)
                 {
                     case 1:
-                        employeeInputCollector.GetEmployeeInput();
+                        _employeeService.GetEmployeeInput();
                         break;
                     case 2:
-                        employeeInputCollector.DisplayEmployees();
+                        _employeeService.DisplayEmployees();
                         break;
                     case 3:
-                        employeeInputCollector.DisplayEmployee();
+                        _employeeService.DisplayEmployee();
                         break;
                     case 4:
-                        employeeInputCollector.EditEmployee();
+                        _employeeService.EditEmployee();
                         break;
                     case 5:
-                        employeeInputCollector.DeleteEmployee();
+                        _employeeService.DeleteEmployee();
                         break;
                     case 6:
                         DisplayMainMenu();
@@ -81,12 +96,13 @@ namespace EmployeeDirectory.Manager
                         break;
                 }
             }
-            catch (FormatException e)
+            catch (Exception e)
             {
                 Helpers.Print(e.ToString());
+                DisplayEmployeeManagementMenu();
             }
-            DisplayEmployeeManagementMenu();
         }
+
         public void DisplayRoleManagementMenu()
         {
             Helpers.Print("Role Management");
@@ -96,7 +112,6 @@ namespace EmployeeDirectory.Manager
             }
             Helpers.Print("");
             Helpers.Print("Enter your choice:");
-            Role roleDetailsCollector = new();
             string? enteredValue = Console.ReadLine();
             try
             {
@@ -104,10 +119,10 @@ namespace EmployeeDirectory.Manager
                 switch (selectedOption)
                 {
                     case 1:
-                        roleDetailsCollector.CollectRoleDetails();
+                        _roleService.CollectRoleDetails();
                         break;
                     case 2:
-                        roleDetailsCollector.DisplayRoles();
+                        _roleService.DisplayRoles();
                         break;
                     case 3:
                         DisplayMainMenu();
@@ -117,11 +132,11 @@ namespace EmployeeDirectory.Manager
                         break;
                 }
             }
-            catch (FormatException e)
+            catch (Exception e)
             {
                 Helpers.Print(e.ToString());
+                DisplayRoleManagementMenu();
             }
-            DisplayRoleManagementMenu();
         }
     }
 }

@@ -3,24 +3,17 @@ using System.Reflection;
 
 namespace EmployeeDirectory.Utilities
 {
-    public class DisplayHelper
+    public static class DisplayHelper
     {
-        public void PrintEmployeesData(List<Employee> employeeData)
+        public static void PrintEmployeesData(List<Employee> employeeData)
         {
-            if (employeeData is null)
+            foreach (Employee employee in employeeData)
             {
-                Helpers.Print("No employee present in DataBase");
-            }
-            else
-            {
-                foreach (Employee employee in employeeData)
-                {
-                    PrintEmployeeData(employee);
-                }
+                PrintEmployeeData(employee);
             }
         }
 
-        public void PrintEmployeeData(Employee employee)
+        public static void PrintEmployeeData(Employee employee)
         {
             foreach (PropertyInfo propertyInfo in employee.GetType().GetProperties())
             {
@@ -29,23 +22,17 @@ namespace EmployeeDirectory.Utilities
             Helpers.Print("=============================================");
         }
 
-        public void PrintRoleData(List<Role>? roleData)
+        public static void PrintRoleData(List<Role>? roleData)
         {
-            if (roleData is null)
+            foreach (Role item in roleData!)
             {
-                Helpers.Print("No roles present in Data");
-            }
-            else
-            {
-                foreach (Role item in roleData)
+                foreach (PropertyInfo propertyInfo in item.GetType().GetProperties())
                 {
-                    foreach (PropertyInfo propertyInfo in item.GetType().GetProperties())
-                    {
-                        Helpers.Print($"{propertyInfo.Name}:{propertyInfo.GetValue(item)}");
-                    }
-                    Helpers.Print("==========================================");
+                    Helpers.Print($"{propertyInfo.Name}:{propertyInfo.GetValue(item)}");
                 }
+                Helpers.Print("==========================================");
             }
+
         }
     }
 }

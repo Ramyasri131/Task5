@@ -3,16 +3,15 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using EmployeeDirectory.DLL.Models;
 using EmployeeDirectory.BAL.Exceptions;
-using System.Text.Json;
 
-namespace EmployeeDirectory.BAL.Validatior
+namespace EmployeeDirectory.BAL.Validators
 {
-    public static class Input
+    public static class EmployeeValidator
     {
-        public static List<string> IsValidEmployee(Employee? employee)
+        public static List<string> GetInValidInputs(Employee? employee)
         {
-            List<string> invalidInputs = new();
-            foreach (PropertyInfo propertyInfo in employee.GetType().GetProperties())
+            List<string> invalidInputs = [];
+            foreach (PropertyInfo propertyInfo in employee!.GetType().GetProperties())
             {
                 string? input = propertyInfo.GetValue(employee)!.ToString();
                 if (!string.IsNullOrEmpty(input) && !string.IsNullOrWhiteSpace(input))
@@ -62,33 +61,6 @@ namespace EmployeeDirectory.BAL.Validatior
                 }
             }
             return invalidInputs;
-        }
-        public static bool IsEmployeePresent(string? id)
-        {
-            string employeeJsonData = File.ReadAllText("C:\\Workspace\\Tasks\\Task5CloneCopy\\Task5\\DataAccessLayer\\StaticData\\Employee.json");
-            List<DLL.Models.Employee> employeeData = JsonSerializer.Deserialize<List<DLL.Models.Employee>>(employeeJsonData)!;
-            if (employeeData.Count == 0)
-            {
-                throw new EmptyDataBase();
-            }
-            
-            if (string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id))
-            {
-                throw new InvalidEmployeeId("Invalid Employee Id");
-            }
-            else
-            {
-                id = id?.ToUpper();
-                DLL.Models.Employee? employee = employeeData.Where(e => e.Id == id).FirstOrDefault();
-                if (employee != null)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
         }
 
         public static string GetValidData(string label,string? inputData)

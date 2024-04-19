@@ -1,15 +1,22 @@
 ﻿using EmployeeDirectory.Utilities;
 using EmployeeDirectory.DLL.StaticData;
-using EmployeeDirectory.BAL.Validatior;
+using EmployeeDirectory.BAL.Validators;
 using EmployeeDirectory.BAL.Exceptions;
+using EmployeeDirectory.BAL.Providers;
 
 namespace EmployeeDirectory.Services
 {
-    public class Employee
+    public interface IEmployeeService
     {
-        private readonly DisplayHelper _printer = new();
-        private readonly BAL.Providers.Employee _employeeManagementSystem = new();
+        public void GetEmployeeInput();
+        public void DisplayEmployees();
+        public void DisplayEmployee();
+        public void EditEmployee();
+        public void DeleteEmployee();
+    }
 
+    public class Employee:IEmployeeService
+    {
         public void GetEmployeeInput()
         {
             Helpers.Print("Enter First Name:");
@@ -50,11 +57,10 @@ namespace EmployeeDirectory.Services
                 Manager = manager,
                 Project = project
             };
-            Console.WriteLine(employeeInput.Location);
-            List<string> InvalidInputs = Input.IsValidEmployee(employeeInput);
+            List<string> InvalidInputs = EmployeeValidator.GetInValidInputs(employeeInput);
             if (InvalidInputs.Count == 0)
             {
-                _employeeManagementSystem.AddEmployee(employeeInput);
+               BAL.Providers.Employee.AddEmployee(employeeInput);
             }
             else
             {
@@ -70,36 +76,31 @@ namespace EmployeeDirectory.Services
         {
             try
             {
-                List<DLL.Models.Employee> employeeData = _employeeManagementSystem.GetAllEmployees();
-                _printer.PrintEmployeesData(employeeData);
+                List<DLL.Models.Employee> employeeData = BAL.Providers.Employee.GetEmployees();
+                DisplayHelper.PrintEmployeesData(employeeData);
             }
-            catch (Exception ex)
+            catch (EmptyDataBase)
             {
-                Helpers.Print(ex.ToString());
+                throw;
             }
         }
 
         public void DisplayEmployee()
         {
-            BAL.Providers.Employee employee = new();
-            DLL.Models.Employee employeeData = new();
             Helpers.Print("Enter Employee Id");
             string? id = Console.ReadLine();
             try
             {
-                employeeData = employee.Display(id);
-                _printer.PrintEmployeeData(employeeData);
+                DLL.Models.Employee employeeData = BAL.Providers.Employee.GetEmployee(id);
+                DisplayHelper.PrintEmployeeData(employeeData);
             }
-            catch (EmptyDataBase e)
+            catch (EmptyDataBase)
             {
-                Helpers.Print(e.ToString());
-                DisplayEmployee();
+                throw;
             }
-
-            catch (InvalidEmployeeId e)
+            catch (InvalidEmployeeId)
             {
-                Helpers.Print(e.ToString());
-                DisplayEmployee();
+                throw;
             }
         }
 
@@ -107,126 +108,115 @@ namespace EmployeeDirectory.Services
         {
             Helpers.Print("Enter Employee Id");
             string? id = Console.ReadLine();
+            id = id!.ToUpper();
+            Helpers.Print("Field to edit");
+            foreach (KeyValuePair<int, string> item in Constant.EmployeeDataLabels)
+            {
+                Helpers.Print(item.Key + " " + item.Value);
+            }
+            Helpers.Print("Enter Option");
+            int selectedOption;
             try
             {
-                if (Input.IsEmployeePresent(id))
+                selectedOption = int.Parse(Console.ReadLine()!);
+            }
+            catch (FormatException)
+            {
+                throw;
+            }
+            string label = Constant.EmployeeDataLabels[selectedOption];
+            string? selectedData;
+            if (string.Equals(label, "location"))
+            {
+                selectedData = SelectValidDetails(label, Constant.Locations);
+            }
+            else if (string.Equals(label, "department"))
+            {
+                selectedData = SelectValidDetails(label, Constant.Departments);
+            }
+            else if (string.Equals(label, "JobTitle"))
+            {
+                Constant.GetRoles();
+                selectedData = SelectValidDetails(label, Constant.Roles);
+            }
+            else if (string.Equals(label, "manager"))
+            {
+                selectedData = SelectValidDetails(label, Constant.Managers);
+            }
+            else if (string.Equals(label, "project"))
+            {
+                selectedData = SelectValidDetails(label, Constant.Projects);
+            }
+            else
+            {
+                try
                 {
-                    Helpers.Print("Field to edit");
-                    foreach (KeyValuePair<int, string> item in Constant.EmployeeDataLabels)
-                    {
-                        Helpers.Print(item.Key + " " + item.Value);
-                    }
-                    Helpers.Print("Enter Option");
-                    string? EnteredOption = Console.ReadLine();
-                    int selectedOption;
-                    if (int.TryParse(EnteredOption, out _))
-                    {
-                        selectedOption = int.Parse(EnteredOption);
-                        string label = Constant.EmployeeDataLabels[selectedOption];
-                        string? dataToEdit;
-                        if (string.Equals(label, "location"))
-                        {
-                            dataToEdit = SelectValidDetails(label, Constant.Locations);
-                        }
-                        else if (string.Equals(label, "department"))
-                        {
-                            dataToEdit = SelectValidDetails(label, Constant.Departments);
-                        }
-                        else if (string.Equals(label, "JobTitle"))
-                        {
-                            Constant.GetRoles();
-                            dataToEdit = SelectValidDetails(label, Constant.Roles);
-                        }
-                        else if (string.Equals(label, "manager"))
-                        {
-                            dataToEdit = SelectValidDetails(label, Constant.Managers);
-                        }
-                        else if (string.Equals(label, "project"))
-                        {
-                            dataToEdit = SelectValidDetails(label, Constant.Projects);
-                        }
-                        else
-                        {
-                            dataToEdit = GetValidDetails(label);
-                        }
-                        _employeeManagementSystem.EditEmployeeDetails(dataToEdit, id, selectedOption);
-                    }
-                    else
-                    {
-                        Helpers.Print("Enter valid option");
-                    }
+                    selectedData = GetValidDetails(label);
                 }
-                else
+                catch (InvalidInput)
                 {
-                    Helpers.Print("Entered Id is not present in Data");
+                    throw;
                 }
             }
-            catch (Exception ex)
+            try
             {
-                Helpers.Print(ex.ToString());
+                BAL.Providers.Employee.EditEmployeeDetails(selectedData, id, selectedOption);
+            }
+            catch (InvalidEmployeeId)
+            {
+                throw;
             }
         }
 
-        public string SelectValidDetails(string label, Dictionary<int, string> list)
+        public static string SelectValidDetails(string label, Dictionary<int, string> list)
         {
             foreach (KeyValuePair<int, string> item in list)
             {
                 Helpers.Print(item.Key + " " + item.Value);
             }
             string? enteredKey = Console.ReadLine();
-            if (int.TryParse(enteredKey, out _))
+            int selectedKey = int.Parse(enteredKey!);
+            if (selectedKey <= 0 && selectedKey >= list.Count)
             {
-                int selectedKey = int.Parse(enteredKey);
-                if(selectedKey<=0 && selectedKey>=list.Count)
-                {
-                    Helpers.Print("Choose from the given options");
-                    return SelectValidDetails(label, list);
-                }
-                else
-                {
-                    return list[selectedKey];
-                }
+                Helpers.Print("Choose from the given options");
+                return SelectValidDetails(label, list);
             }
             else
             {
-                Helpers.Print("Enter Numerical option");
-                return SelectValidDetails(label, list);
+                return list[selectedKey];
             }
         }
-        public string GetValidDetails(string label)
+
+        public static string GetValidDetails(string label)
         {
             Helpers.Print($"Enter {label}");
             string? inputData = Console.ReadLine();
             try
             {
-                string employeeData=Input.GetValidData(label,inputData);
+                string employeeData=EmployeeValidator.GetValidData(label,inputData);
                 return inputData!;
             }
-            catch (InvalidInput e)
+            catch (InvalidInput)
             {
-                Helpers.Print(e.ToString());
-                return GetValidDetails(label);
+                throw;
             }
         }
+
         public void DeleteEmployee()
         {
             Helpers.Print("Enter Employee Id To Delete");
             string? enteredEmpId = Console.ReadLine();
             try
             {
-                try
-                {
-                    _employeeManagementSystem.DeleteEmployee(enteredEmpId);
-                }
-                catch (EmptyDataBase ex) {
-                    Helpers.Print(ex.ToString());
-                    DeleteEmployee();
-                }
+                BAL.Providers.Employee.DeleteEmployee(enteredEmpId);
             }
-            catch (InvalidEmployeeId e)
+            catch (EmptyDataBase)
             {
-                Helpers.Print(e.ToString());
-                DeleteEmployee();
+                throw;
+            }
+            catch (InvalidEmployeeId)
+            {
+                throw;
             }
         }
     }
