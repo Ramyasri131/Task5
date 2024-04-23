@@ -1,30 +1,47 @@
-﻿using System.Text.Json;
-using EmployeeDirectory.BAL.Exceptions;
-using EmployeeDirectory.DLL.Data;
+﻿using EmployeeDirectory.BAL.Exceptions;
+using EmployeeDirectory.DAL.Data;
+using EmployeeDirectory.DAL.Extensions;
+using EmployeeDirectory.DAL.Exceptions;
+using System.Text.Json;
+
 
 namespace EmployeeDirectory.BAL.Providers
 {
     public static class Role
     {
-        public static void AddRole(DLL.Models.Role roleInput)
+        public static void AddRole(DAL.Models.Role roleInput)
         {
-            if(string.IsNullOrEmpty(roleInput.Name) || string.IsNullOrWhiteSpace(roleInput.Name))
+            if(roleInput.Name.IsNullOrEmptyOrWhiteSpace())
             {
-                throw new InvalidRoleName();
+                throw new BAL.Exceptions.InvalidData("Enter Role Name");
             }
-            List<DLL.Models.Role> inputRoleData = Reader.GetRoleDetails();
+            List<DAL.Models.Role> inputRoleData;
+            inputRoleData = Reader.GetRoleDetails();
+            foreach (DAL.Models.Role role in inputRoleData)
+            {
+                if(role.Name == roleInput.Name)
+                {
+                    throw new BAL.Exceptions.InvalidData("Role Exists");
+                }
+            }
             inputRoleData.Add(roleInput);
             Writer.WriteRoleData(inputRoleData);
         }
 
-        public static List<DLL.Models.Role>? GetRoles()
+        public static List<DAL.Models.Role> GetRoles()
         {
-            List<DLL.Models.Role>? inputRoleData = Reader.GetRoleDetails();
-            if (inputRoleData.Count == 0)
+            try
             {
-                throw new EmptyDataBase();
+                return Reader.GetRoleDetails();
             }
-            return inputRoleData;
+            catch (RecordNotFound)
+            {
+                throw new RecordNotFound("Data Base is empty");
+            }
+            catch(JsonException)
+            {
+                throw;
+            }
         }
     }
 }

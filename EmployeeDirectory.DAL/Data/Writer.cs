@@ -1,19 +1,19 @@
 ﻿using System.Text.Json;
 
-namespace EmployeeDirectory.DLL.Data
+namespace EmployeeDirectory.DAL.Data
 {
     public static class Writer
     {
-        public static void WriteEmployeeData(List<DLL.Models.Employee> employees)
+        public static void WriteEmployeeData(List<Models.Employee> employees)
         {
             string json = JsonSerializer.Serialize(employees);
-            File.WriteAllText("C:\\Workspace\\Tasks\\Task5CloneCopy\\Task5\\DataAccessLayer\\StaticData\\Employee.json", json);
+            File.WriteAllText("C:\\Workspace\\Tasks\\CSharpCloneCopy\\Task5\\EmployeeDirectory.DAL\\StaticData\\Employee.json", json);
         }
 
-        public static void WriteRoleData(List<DLL.Models.Role> roles)
+        public static void WriteRoleData(List<Models.Role> roles)
         {
             string json = JsonSerializer.Serialize(roles);
-            File.WriteAllText("C:\\Workspace\\Tasks\\Task5CloneCopy\\Task5\\DataAccessLayer\\StaticData\\Role.json", json);
+            File.WriteAllText("C:\\Workspace\\Tasks\\CSharpCloneCopy\\Task5\\EmployeeDirectory.DAL\\StaticData\\Role.json", json);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using EmployeeDirectory.DLL.Models;
+﻿using EmployeeDirectory.DAL.Models;
 using System.Reflection;
 
 namespace EmployeeDirectory.Utilities

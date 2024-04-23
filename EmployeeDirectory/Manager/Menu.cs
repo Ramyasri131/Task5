@@ -1,16 +1,13 @@
 ﻿using EmployeeDirectory.Utilities;
-using EmployeeDirectory.DLL.StaticData;
-using EmployeeDirectory.Services;
+using EmployeeDirectory.DAL.StaticData;
+using EmployeeDirectory.Interfaces;
+using EmployeeDirectory.DAL.Exceptions;
+using EmployeeDirectory.BAL.Exceptions;
+using System.Text.Json;
 
 namespace EmployeeDirectory.Manager
 {
-    public interface IMenuManager
-    {
-        public void DisplayMainMenu();
-        public void DisplayEmployeeManagementMenu();
-        public void DisplayRoleManagementMenu();
-    }
-
+   
     public class Menu : IMenuManager
     {
         private readonly IEmployeeService _employeeService;
@@ -24,6 +21,7 @@ namespace EmployeeDirectory.Manager
 
         public void DisplayMainMenu()
         {
+            Constant.GetRoles();
             Helpers.Print("Main Menu");
             foreach (var item in Constant.MainMenu)
             {
@@ -61,7 +59,7 @@ namespace EmployeeDirectory.Manager
         public void DisplayEmployeeManagementMenu()
         {
             Helpers.Print("Employee Management");
-            foreach (var item in Constant.EmployeMaangementMenu)
+            foreach (var item in Constant.EmployeeManagementMenu)
             {
                 Helpers.Print(item.Key, item.Value);
             }
@@ -96,9 +94,26 @@ namespace EmployeeDirectory.Manager
                         break;
                 }
             }
-            catch (Exception e)
+            catch (FormatException e)
             {
                 Helpers.Print(e.ToString());
+            }
+            catch(RecordNotFound ex)
+            {
+                Helpers.Print(ex.ToString());
+
+            }
+            catch (InvalidData ex)
+            {
+                Helpers.Print(ex.ToString());
+
+            }
+            catch (JsonException ex)
+            {
+                Helpers.Print(ex.ToString());
+            }
+            finally
+            {
                 DisplayEmployeeManagementMenu();
             }
         }
@@ -132,9 +147,24 @@ namespace EmployeeDirectory.Manager
                         break;
                 }
             }
-            catch (Exception e)
+            catch (FormatException e)
             {
                 Helpers.Print(e.ToString());
+            }
+            catch (RecordNotFound ex)
+            {
+                Helpers.Print(ex.ToString());
+            }
+            catch (InvalidData ex)
+            {
+                Helpers.Print(ex.ToString());
+            }
+            catch(JsonException ex)
+            {
+                Helpers.Print(ex.ToString());
+            }
+            finally
+            {
                 DisplayRoleManagementMenu();
             }
         }

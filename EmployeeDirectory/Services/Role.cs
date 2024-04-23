@@ -1,22 +1,18 @@
 ﻿using EmployeeDirectory.Utilities;
-using EmployeeDirectory.DLL.StaticData;
-using EmployeeDirectory.BAL.Exceptions;
+using EmployeeDirectory.DAL.StaticData;
+using EmployeeDirectory.Interfaces;
+using EmployeeDirectory.DAL.Exceptions;
+using System.Text.Json;
 
 namespace EmployeeDirectory.Services
 {
-    public interface IRoleService
-    {
-        public void CollectRoleDetails();
-        public void DisplayRoles();
-    }
-
     public class Role:IRoleService
     {
         public  void CollectRoleDetails()
         {
             Helpers.Print("Enter RoleName");
             string? roleName = Console.ReadLine();
-            DLL.Models.Role roleInput;
+            DAL.Models.Role roleInput;
             try
             {
                 Helpers.Print("select department");
@@ -41,22 +37,25 @@ namespace EmployeeDirectory.Services
             {
                 BAL.Providers.Role.AddRole(roleInput);
             }
-            catch (InvalidRoleName)
+            catch (BAL.Exceptions.InvalidData)
             {
                 throw;
             }
-
         }
+
         public static string SaveValidDetails(string label, Dictionary<int, string> list)
         {
             foreach (KeyValuePair<int, string> item in list)
             {
                 Helpers.Print(item.Key + " " + item.Value);
             }
-            int selectedKey=0;
+            int selectedKey;
             try
             {
                 selectedKey = int.Parse(Console.ReadLine()!);
+                if( selectedKey > list.Count ) {
+                    throw new BAL.Exceptions.InvalidData("Choose the option from the list");
+                }
                 return list[selectedKey];
             }
             catch (FormatException)
@@ -67,17 +66,20 @@ namespace EmployeeDirectory.Services
 
         public void DisplayRoles()
         {
-            List<DLL.Models.Role>? roleData;
+            List<DAL.Models.Role>? roleData;
             try
             {
                 roleData = BAL.Providers.Role.GetRoles();
                 DisplayHelper.PrintRoleData(roleData);
             }
-            catch(EmptyDataBase)
+            catch(RecordNotFound)
             {
                 throw;
             }
-           
+            catch (JsonException)
+            {
+                throw;
+            }
         }
     }
 }

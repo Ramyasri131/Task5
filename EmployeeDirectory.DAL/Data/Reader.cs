@@ -1,21 +1,42 @@
-﻿using System.Text.Json;
+﻿using EmployeeDirectory.DAL.Extensions;
+using System.Text.Json;
 
-namespace EmployeeDirectory.DLL.Data
+namespace EmployeeDirectory.DAL.Data
 {
     public static class Reader
     {
         public static List<Models.Employee> GetEmployeeDetails()
         {
-            string employeeJsonData = File.ReadAllText("C:\\Workspace\\Tasks\\Task5CloneCopy\\Task5\\DataAccessLayer\\StaticData\\Employee.json");
-            List<Models.Employee> employees =  JsonSerializer.Deserialize<List<DLL.Models.Employee>>(employeeJsonData)!;
-            return employees;
+            string employeeJsonData = File.ReadAllText("C:\\Workspace\\Tasks\\CSharpCloneCopy\\Task5\\EmployeeDirectory.DAL\\StaticData\\Employee.json");
+            if (employeeJsonData.IsNullOrEmptyOrWhiteSpace())
+            {
+                return new List<Models.Employee>();
+            }
+            try
+            {
+                return JsonSerializer.Deserialize<List<Models.Employee>>(employeeJsonData)!;
+            }
+            catch (JsonException)
+            {
+                throw;
+            }
         }
 
         public static List<Models.Role> GetRoleDetails()
         {
-            string roleJsonData = File.ReadAllText("C:\\Workspace\\Tasks\\Task5CloneCopy\\Task5\\DataAccessLayer\\StaticData\\Role.json");
-            List<DLL.Models.Role> RoleData = JsonSerializer.Deserialize<List<DLL.Models.Role>>(roleJsonData)!;
-            return RoleData;
+            string roleJsonData = File.ReadAllText("C:\\Workspace\\Tasks\\CSharpCloneCopy\\Task5\\EmployeeDirectory.DAL\\StaticData\\Role.json");
+            if (roleJsonData.IsNullOrEmptyOrWhiteSpace())
+            {
+                return new List<Models.Role>();
+            }
+            try
+            {
+                return JsonSerializer.Deserialize<List<Models.Role>>(roleJsonData)!;
+            }
+            catch (JsonException)
+            {   
+                throw;
+            }
         }
     }
 }

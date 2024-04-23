@@ -18,10 +18,4 @@
     <ProjectReference Include="..\EmployeeDirectory.BAL\EmployeeDirectory.BAL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="AppSettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
