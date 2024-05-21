@@ -1,0 +1,44 @@
+[
+  {
+    "Id": "TZ0002",
+    "FirstName": "Ramya",
+    "LastName": "Sanaboina",
+    "Email": "ramya@tezo.com",
+    "MobileNumber": 9876543210,
+    "DateOfBirth": "01/12/2002",
+    "DateOfJoin": "01/12/2020",
+    "Location": "Hyderabad",
+    "JobTitle": "lead",
+    "Department": "PE",
+    "Manager": "Sandeep",
+    "Project": "Project1"
+  },
+  {
+    "Id": "TZ0004",
+    "FirstName": "Sai Lokesh",
+    "LastName": "Sanaboina",
+    "Email": "sai@tezo.com",
+    "MobileNumber": 9876543210,
+    "DateOfBirth": "01/12/2002",
+    "DateOfJoin": "01/12/2020",
+    "Location": "Hyderabad",
+    "JobTitle": "lead",
+    "Department": "PE",
+    "Manager": "Sandeep",
+    "Project": "Project1"
+  },
+  {
+    "Id": "TZ0010",
+    "FirstName": "Jimin",
+    "LastName": "Park",
+    "Email": "jimin@tezo.com",
+    "MobileNumber": 9876543210,
+    "DateOfBirth": "01/12/2002",
+    "DateOfJoin": "01/12/2020",
+    "Location": "Hyderabad",
+    "JobTitle": "lead",
+    "Department": "PE",
+    "Manager": "Sandeep",
+    "Project": "Project1"
+  }
+]
