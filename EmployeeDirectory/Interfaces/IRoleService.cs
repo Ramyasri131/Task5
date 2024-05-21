@@ -2,7 +2,7 @@
 {
     public interface IRoleService
     {
-        public void CollectRoleDetails();
+        public void GetDetails();
         public void DisplayRoles();
     }
 }

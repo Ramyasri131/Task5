@@ -1,6 +1,6 @@
 ﻿using System.Data;
 using EmployeeDirectory.BAL.Exceptions;
-using EmployeeDirectory.DAL.Extensions;
+using EmployeeDirectory.BAL.Extensions;
 using EmployeeDirectory.DAL.Exceptions;
 using EmployeeDirectory.DAL.Data;
 
@@ -11,7 +11,7 @@ namespace EmployeeDirectory.BAL.Providers
         public static void AddEmployee(DTO.Employee employee)
         {
             List<DAL.Models.Employee> employees;
-            employees = Reader.GetEmployeeDetails();
+            employees = FetchData.GetEmployeeDetails();
             employees = employees.OrderBy(x => x.Id).ToList();
             int employeeCount = int.Parse(employees[^1].Id[2..]) + 1;
             string id = string.Format("{0:0000}", employeeCount);
@@ -32,27 +32,27 @@ namespace EmployeeDirectory.BAL.Providers
                 Project = employee.Project,
             };
             employees.Add(user);
-            Writer.WriteEmployeeData(employees);
+            UpdateData.WriteEmployeeData(employees);
         }
 
         public static List<DAL.Models.Employee> GetEmployees()
         {
             List<DAL.Models.Employee> employees;
-            try
-            {
-                employees = Reader.GetEmployeeDetails();
-            }
-            catch (Exception)
+            employees = FetchData.GetEmployeeDetails();
+            if(employees.Count==0)
             {
                 throw new RecordNotFound("Data Base is empty");
             }
-            return employees;
+            else
+            {
+                return employees;
+            }
         }
 
         public static void EditEmployeeDetails(string selectedData, string? id, int selectedOption)
         {
             List<DAL.Models.Employee> employees;
-            employees = Reader.GetEmployeeDetails();
+            employees = FetchData.GetEmployeeDetails();
             if (id.IsNullOrEmptyOrWhiteSpace())
             {
                 throw new InvalidData("Enter Employee Id");
@@ -80,25 +80,18 @@ namespace EmployeeDirectory.BAL.Providers
             }
             else
             {
-                try
-                {
-                    employee.MobileNumber = long.Parse(selectedData);
-                }
-                catch (FormatException)
-                {
-                    throw;
-                }
+                employee.MobileNumber = long.Parse(selectedData);
             }
-            Writer.WriteEmployeeData(employees);
+            UpdateData.WriteEmployeeData(employees);
         }
 
         public static void DeleteEmployee(string? id)
         {
             List<DAL.Models.Employee> employees;
-            employees = Reader.GetEmployeeDetails();
+            employees = FetchData.GetEmployeeDetails();
             DAL.Models.Employee? employee = GetEmployeeById(id);
             employees.RemoveAll(emp => emp.Id == employee.Id);
-            Writer.WriteEmployeeData(employees);
+            UpdateData.WriteEmployeeData(employees);
         }
 
         public static DAL.Models.Employee GetEmployeeById(string? id)
@@ -110,7 +103,7 @@ namespace EmployeeDirectory.BAL.Providers
             else
             {
                 List<DAL.Models.Employee>? employees;
-                employees = Reader.GetEmployeeDetails();
+                employees = FetchData.GetEmployeeDetails();
                 id = id!.ToUpper();
                 DAL.Models.Employee? employee = employees.Where(e => e.Id == id).FirstOrDefault();
                 if (employee is null)

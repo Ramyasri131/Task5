@@ -1,4 +1,4 @@
-﻿namespace EmployeeDirectory.DAL.Extensions
+﻿namespace EmployeeDirectory.BAL.Extensions
 {
     public static class StringExtensions
     {

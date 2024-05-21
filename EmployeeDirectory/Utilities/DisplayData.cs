@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace EmployeeDirectory.Utilities
 {
-    public static class DisplayHelper
+    public static class DisplayData
     {
         public static void PrintEmployeesData(List<Employee> employeeData)
         {
@@ -17,9 +17,9 @@ namespace EmployeeDirectory.Utilities
         {
             foreach (PropertyInfo propertyInfo in employee.GetType().GetProperties())
             {
-                Helpers.Print($"{propertyInfo.Name}:{propertyInfo.GetValue(employee)}");
+                Display.Print($"{propertyInfo.Name}:{propertyInfo.GetValue(employee)}");
             }
-            Helpers.Print("=============================================");
+            Display.Print("=============================================");
         }
 
         public static void PrintRoleData(List<Role>? roleData)
@@ -28,11 +28,10 @@ namespace EmployeeDirectory.Utilities
             {
                 foreach (PropertyInfo propertyInfo in item.GetType().GetProperties())
                 {
-                    Helpers.Print($"{propertyInfo.Name}:{propertyInfo.GetValue(item)}");
+                    Display.Print($"{propertyInfo.Name}:{propertyInfo.GetValue(item)}");
                 }
-                Helpers.Print("==========================================");
+                Display.Print("==========================================");
             }
-
         }
     }
 }

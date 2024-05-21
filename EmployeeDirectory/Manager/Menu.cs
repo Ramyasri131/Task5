@@ -8,27 +8,21 @@ using System.Text.Json;
 namespace EmployeeDirectory.Manager
 {
    
-    public class Menu : IMenuManager
+    public class Menu(IEmployeeService employeeService, IRoleService roleService) : IMenuManager
     {
-        private readonly IEmployeeService _employeeService;
-        private readonly IRoleService _roleService;
-
-        public Menu(IEmployeeService employeeService, IRoleService roleService)
-        {
-            _employeeService = employeeService;
-            _roleService = roleService;
-        }
+        private readonly IEmployeeService _employeeService = employeeService;
+        private readonly IRoleService _roleService = roleService;
 
         public void DisplayMainMenu()
         {
-            Constant.GetRoles();
-            Helpers.Print("Main Menu");
-            foreach (var item in Constant.MainMenu)
+            Constants.GetRoles();
+            Display.Print("Main Menu");
+            foreach (var item in Constants.MainMenu)
             {
-                Helpers.Print(item.Key, item.Value);
+                Display.Print(item.Key, item.Value);
             }
-            Helpers.Print("");
-            Helpers.Print("Enter Your Choice:");
+            Display.Print("");
+            Display.Print("Enter Your Choice:");
             string? enteredOption = Console.ReadLine();
             try
             {
@@ -42,29 +36,29 @@ namespace EmployeeDirectory.Manager
                         DisplayRoleManagementMenu();
                         break;
                     case 3:
-                        Helpers.Print("Exit");
+                        Display.Print("Exit");
                         return;
                     default:
-                        Helpers.Print("Invalid Option");
+                        Display.Print("Invalid Option");
                         break;
                 }
             }
             catch (FormatException e)
             {
-                Helpers.Print(e.ToString());
+                Display.Print(e.ToString());
                 DisplayMainMenu();
             }
         }
 
         public void DisplayEmployeeManagementMenu()
         {
-            Helpers.Print("Employee Management");
-            foreach (var item in Constant.EmployeeManagementMenu)
+            Display.Print("Employee Management");
+            foreach (var item in Constants.EmployeeManagementMenu)
             {
-                Helpers.Print(item.Key, item.Value);
+                Display.Print(item.Key, item.Value);
             }
-            Helpers.Print("");
-            Helpers.Print("Enter your choice:");
+            Display.Print("");
+            Display.Print("Enter your choice:");
             string? enteredValue = Console.ReadLine();
             try
             {
@@ -90,27 +84,27 @@ namespace EmployeeDirectory.Manager
                         DisplayMainMenu();
                         return;
                     default:
-                        Helpers.Print("Enter valid option");
+                        Display.Print("Enter valid option");
                         break;
                 }
             }
             catch (FormatException e)
             {
-                Helpers.Print(e.ToString());
+                Display.Print(e.ToString());
             }
             catch(RecordNotFound ex)
             {
-                Helpers.Print(ex.ToString());
+                Display.Print(ex.ToString());
 
             }
             catch (InvalidData ex)
             {
-                Helpers.Print(ex.ToString());
+                Display.Print(ex.ToString());
 
             }
             catch (JsonException ex)
             {
-                Helpers.Print(ex.ToString());
+                Display.Print(ex.ToString());
             }
             finally
             {
@@ -120,13 +114,13 @@ namespace EmployeeDirectory.Manager
 
         public void DisplayRoleManagementMenu()
         {
-            Helpers.Print("Role Management");
-            foreach (var item in Constant.RoleManagementMenu)
+            Display.Print("Role Management");
+            foreach (var item in Constants.RoleManagementMenu)
             {
-                Helpers.Print(item.Key, item.Value);
+                Display.Print(item.Key, item.Value);
             }
-            Helpers.Print("");
-            Helpers.Print("Enter your choice:");
+            Display.Print("");
+            Display.Print("Enter your choice:");
             string? enteredValue = Console.ReadLine();
             try
             {
@@ -134,7 +128,7 @@ namespace EmployeeDirectory.Manager
                 switch (selectedOption)
                 {
                     case 1:
-                        _roleService.CollectRoleDetails();
+                        _roleService.GetDetails();
                         break;
                     case 2:
                         _roleService.DisplayRoles();
@@ -143,25 +137,25 @@ namespace EmployeeDirectory.Manager
                         DisplayMainMenu();
                         break;
                     default:
-                        Helpers.Print("Invalid Option");
+                        Display.Print("Invalid Option");
                         break;
                 }
             }
             catch (FormatException e)
             {
-                Helpers.Print(e.ToString());
+                Display.Print(e.ToString());
             }
             catch (RecordNotFound ex)
             {
-                Helpers.Print(ex.ToString());
+                Display.Print(ex.ToString());
             }
             catch (InvalidData ex)
             {
-                Helpers.Print(ex.ToString());
+                Display.Print(ex.ToString());
             }
             catch(JsonException ex)
             {
-                Helpers.Print(ex.ToString());
+                Display.Print(ex.ToString());
             }
             finally
             {

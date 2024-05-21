@@ -1,8 +1,6 @@
-﻿using EmployeeDirectory.BAL.Exceptions;
-using EmployeeDirectory.DAL.Data;
-using EmployeeDirectory.DAL.Extensions;
+﻿using EmployeeDirectory.DAL.Data;
+using EmployeeDirectory.BAL.Extensions;
 using EmployeeDirectory.DAL.Exceptions;
-using System.Text.Json;
 
 
 namespace EmployeeDirectory.BAL.Providers
@@ -16,7 +14,7 @@ namespace EmployeeDirectory.BAL.Providers
                 throw new BAL.Exceptions.InvalidData("Enter Role Name");
             }
             List<DAL.Models.Role> inputRoleData;
-            inputRoleData = Reader.GetRoleDetails();
+            inputRoleData = FetchData.GetRoleDetails();
             foreach (DAL.Models.Role role in inputRoleData)
             {
                 if(role.Name == roleInput.Name)
@@ -25,22 +23,20 @@ namespace EmployeeDirectory.BAL.Providers
                 }
             }
             inputRoleData.Add(roleInput);
-            Writer.WriteRoleData(inputRoleData);
+            UpdateData.WriteRoleData(inputRoleData);
         }
 
         public static List<DAL.Models.Role> GetRoles()
         {
-            try
-            {
-                return Reader.GetRoleDetails();
-            }
-            catch (RecordNotFound)
+
+            List < DAL.Models.Role > roles= FetchData.GetRoleDetails();
+            if(roles.Count==0)
             {
                 throw new RecordNotFound("Data Base is empty");
             }
-            catch(JsonException)
+            else
             {
-                throw;
+                return roles;
             }
         }
     }

@@ -11,8 +11,8 @@ namespace EmployeeDirectory
             serviceCollection.AddSingleton<IEmployeeService, Services.Employee>();
             serviceCollection.AddSingleton<IRoleService, Services.Role>();
             serviceCollection.AddSingleton<IMenuManager, Menu>();
-            ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 
+            ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
             IMenuManager displayOptions = serviceProvider.GetService<IMenuManager>()!;
             displayOptions.DisplayMainMenu();
         }

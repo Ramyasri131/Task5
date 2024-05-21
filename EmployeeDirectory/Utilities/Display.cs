@@ -1,6 +1,6 @@
 ﻿namespace EmployeeDirectory.Utilities
 {
-    public static class Helpers
+    public static class Display
     {
         public static void Print(string message)
         {

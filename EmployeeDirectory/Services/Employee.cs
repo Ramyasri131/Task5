@@ -10,28 +10,28 @@ namespace EmployeeDirectory.Services
     {
         public void GetEmployeeInput()
         {
-            Helpers.Print("Enter First Name:");
+            Display.Print("Enter First Name:");
             string? firstName = Console.ReadLine();
-            Helpers.Print("Enter Last Name:");
+            Display.Print("Enter Last Name:");
             string? lastName = Console.ReadLine();
-            Helpers.Print("Enter Date Of Birth in (dd/mm/yyyy):");
+            Display.Print("Enter Date Of Birth in (dd/mm/yyyy):");
             string? dateOfBirth = Console.ReadLine();
-            Helpers.Print("Enter Email:");
+            Display.Print("Enter Email:");
             string? email = Console.ReadLine();
-            Helpers.Print("Enter Mobile Number:");
+            Display.Print("Enter Mobile Number:");
             long mobileNumber = long.Parse(Console.ReadLine()!);
-            Helpers.Print("Enter Date Of Join in (dd/mm/yyyy):");
+            Display.Print("Enter Date Of Join in (dd/mm/yyyy):");
             string? dateOfJoin = Console.ReadLine();
-            Helpers.Print("select Location:");
-            string location = SelectValidDetails("location", Constant.Locations);
-            Helpers.Print("select JobTitle:");
-            string jobTitle = SelectValidDetails("jobTitle", Constant.Roles);
-            Helpers.Print("select Department:");
-            string department = SelectValidDetails("department", Constant.Departments);
-            Helpers.Print("select Manager");
-            string manager = SelectValidDetails("Manager", Constant.Managers);
-            Helpers.Print("select Project");
-            string project = SelectValidDetails("Project", Constant.Projects);
+            Display.Print("select Location:");
+            string location = SelectValidDetails("location", Constants.Locations);
+            Display.Print("select JobTitle:");
+            string jobTitle = SelectValidDetails("jobTitle", Constants.Roles);
+            Display.Print("select Department:");
+            string department = SelectValidDetails("department", Constants.Departments);
+            Display.Print("select Manager");
+            string manager = SelectValidDetails("Manager", Constants.Managers);
+            Display.Print("select Project");
+            string project = SelectValidDetails("Project", Constants.Projects);
             BAL.DTO.Employee employeeInput = new()
             {
                 FirstName = firstName,
@@ -55,7 +55,7 @@ namespace EmployeeDirectory.Services
             {
                 foreach (string input in InvalidInputs)
                 {
-                    Helpers.Print($"Enter Valid {input}");
+                    Display.Print($"Enter Valid {input}");
                 }
                 GetEmployeeInput();
             }
@@ -66,7 +66,7 @@ namespace EmployeeDirectory.Services
             try
             {
                 List<DAL.Models.Employee> employeeData = BAL.Providers.Employee.GetEmployees();
-                DisplayHelper.PrintEmployeesData(employeeData);
+                DisplayData.PrintEmployeesData(employeeData);
             }
             catch (RecordNotFound)
             {
@@ -76,12 +76,12 @@ namespace EmployeeDirectory.Services
 
         public void DisplayEmployee()
         {
-            Helpers.Print("Enter Employee Id");
+            Display.Print("Enter Employee Id");
             string? id = Console.ReadLine();
             try
             {
                 DAL.Models.Employee employeeData = BAL.Providers.Employee.GetEmployeeById(id);
-                DisplayHelper.PrintEmployeeData(employeeData);
+                DisplayData.PrintEmployeeData(employeeData);
             }
             catch (RecordNotFound)
             {
@@ -91,60 +91,50 @@ namespace EmployeeDirectory.Services
 
         public void EditEmployee()
         {
-            Helpers.Print("Enter Employee Id");
+            Display.Print("Enter Employee Id");
             string? id = Console.ReadLine();
             id = id!.ToUpper();
-            Helpers.Print("Field to edit");
-            foreach (KeyValuePair<int, string> item in Constant.EmployeeDataLabels)
+            Display.Print("Field to edit");
+            foreach (KeyValuePair<int, string> item in Constants.EmployeeDataLabels)
             {
-                Helpers.Print(item.Key + " " + item.Value);
+                Display.Print(item.Key + " " + item.Value);
             }
-            Helpers.Print("Enter Option");
+            Display.Print("Enter Option");
             int selectedOption;
             try
             {
                 selectedOption = int.Parse(Console.ReadLine()!);
-            }
-            catch (FormatException)
-            {
-                throw;
-            }
-            string label = Constant.EmployeeDataLabels[selectedOption];
-            string? selectedData;
-            if (string.Equals(label, "Location"))
-            {
-                selectedData = SelectValidDetails(label, Constant.Locations);
-            }
-            else if (string.Equals(label, "Department"))
-            {
-                selectedData = SelectValidDetails(label, Constant.Departments);
-            }
-            else if (string.Equals(label, "JobTitle"))
-            {
-                selectedData = SelectValidDetails(label, Constant.Roles);
-            }
-            else if (string.Equals(label, "Manager"))
-            {
-                selectedData = SelectValidDetails(label, Constant.Managers);
-            }
-            else if (string.Equals(label, "Project"))
-            {
-                selectedData = SelectValidDetails(label, Constant.Projects);
-            }
-            else
-            {
-                try
+                string label = Constants.EmployeeDataLabels[selectedOption];
+                string? selectedData;
+                if (string.Equals(label, "Location"))
+                {
+                    selectedData = SelectValidDetails(label, Constants.Locations);
+                }
+                else if (string.Equals(label, "Department"))
+                {
+                    selectedData = SelectValidDetails(label, Constants.Departments);
+                }
+                else if (string.Equals(label, "JobTitle"))
+                {
+                    selectedData = SelectValidDetails(label, Constants.Roles);
+                }
+                else if (string.Equals(label, "Manager"))
+                {
+                    selectedData = SelectValidDetails(label, Constants.Managers);
+                }
+                else if (string.Equals(label, "Project"))
+                {
+                    selectedData = SelectValidDetails(label, Constants.Projects);
+                }
+                else
                 {
                     selectedData = GetValidDetails(label);
                 }
-                catch (BAL.Exceptions.InvalidData)
-                {
-                    throw;
-                }
+                 BAL.Providers.Employee.EditEmployeeDetails(selectedData, id, selectedOption);
             }
-            try
+            catch (BAL.Exceptions.InvalidData)
             {
-                BAL.Providers.Employee.EditEmployeeDetails(selectedData, id, selectedOption);
+                throw;
             }
             catch (RecordNotFound)
             {
@@ -154,19 +144,20 @@ namespace EmployeeDirectory.Services
             {
                 throw;
             }
+           
         }
 
         public static string SelectValidDetails(string label, Dictionary<int, string> list)
         {
             foreach (KeyValuePair<int, string> item in list)
             {
-                Helpers.Print(item.Key + " " + item.Value);
+                Display.Print(item.Key + " " + item.Value);
             }
             string? enteredKey = Console.ReadLine();
             int selectedKey = int.Parse(enteredKey!);
             if (selectedKey <= 0 && selectedKey > list.Count)
             {
-                Helpers.Print("Choose from the given options");
+                Display.Print("Choose from the given options");
                 return SelectValidDetails(label, list);
             }
             else
@@ -177,7 +168,7 @@ namespace EmployeeDirectory.Services
 
         public static string GetValidDetails(string label)
         {
-            Helpers.Print($"Enter {label}");
+            Display.Print($"Enter {label}");
             string? inputData = Console.ReadLine();
             try
             {
@@ -192,7 +183,7 @@ namespace EmployeeDirectory.Services
 
         public void DeleteEmployee()
         {
-            Helpers.Print("Enter Employee Id To Delete");
+            Display.Print("Enter Employee Id To Delete");
             string? enteredEmpId = Console.ReadLine();
             try
             {

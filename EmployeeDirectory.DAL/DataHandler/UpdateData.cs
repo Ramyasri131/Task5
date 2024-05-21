@@ -2,7 +2,7 @@
 
 namespace EmployeeDirectory.DAL.Data
 {
-    public static class Writer
+    public static class UpdateData
     {
         public static void WriteEmployeeData(List<Models.Employee> employees)
         {

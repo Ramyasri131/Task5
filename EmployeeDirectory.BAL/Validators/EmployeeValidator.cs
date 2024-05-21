@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using EmployeeDirectory.DAL.Models;
 using EmployeeDirectory.BAL.Exceptions;
-using EmployeeDirectory.DAL.Extensions;
+using EmployeeDirectory.BAL.Extensions;
 
 namespace EmployeeDirectory.BAL.Validators
 {

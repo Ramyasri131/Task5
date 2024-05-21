@@ -8,19 +8,19 @@ namespace EmployeeDirectory.Services
 {
     public class Role:IRoleService
     {
-        public  void CollectRoleDetails()
+        public  void GetDetails()
         {
-            Helpers.Print("Enter RoleName");
+            Display.Print("Enter RoleName");
             string? roleName = Console.ReadLine();
             DAL.Models.Role roleInput;
             try
             {
-                Helpers.Print("select department");
-                string department = SaveValidDetails("department", Constant.Departments);
-                Helpers.Print("Enter Description");
+                Display.Print("select department");
+                string department = SaveDetails("department", Constants.Departments);
+                Display.Print("Enter Description");
                 string? description = Console.ReadLine();
-                Helpers.Print("Select Location");
-                string location = SaveValidDetails("location", Constant.Locations);
+                Display.Print("Select Location");
+                string location = SaveDetails("location", Constants.Locations);
                 roleInput = new()
                 {
                     Name = roleName,
@@ -28,14 +28,11 @@ namespace EmployeeDirectory.Services
                     Department = department,
                     Description = description
                 };
+                BAL.Providers.Role.AddRole(roleInput);
             }
             catch (FormatException)
             {
                 throw;
-            }
-            try
-            {
-                BAL.Providers.Role.AddRole(roleInput);
             }
             catch (BAL.Exceptions.InvalidData)
             {
@@ -43,11 +40,11 @@ namespace EmployeeDirectory.Services
             }
         }
 
-        public static string SaveValidDetails(string label, Dictionary<int, string> list)
+        public static string SaveDetails(string label, Dictionary<int, string> list)
         {
             foreach (KeyValuePair<int, string> item in list)
             {
-                Helpers.Print(item.Key + " " + item.Value);
+                Display.Print(item.Key + " " + item.Value);
             }
             int selectedKey;
             try
@@ -70,7 +67,7 @@ namespace EmployeeDirectory.Services
             try
             {
                 roleData = BAL.Providers.Role.GetRoles();
-                DisplayHelper.PrintRoleData(roleData);
+                DisplayData.PrintRoleData(roleData);
             }
             catch(RecordNotFound)
             {

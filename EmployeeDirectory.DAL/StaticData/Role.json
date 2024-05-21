@@ -1,14 +1,1 @@
-[
-  {
-    "Name": "lead",
-    "Location": "Hyderabad",
-    "Department": "PE",
-    "Description": "test"
-  },
-  {
-    "Name": "solution Architect",
-    "Location": "Hyderabad",
-    "Department": "PE",
-    "Description": "test"
-  }
-]
+[{"Name":"Lead developer","Location":"Hyderabad","Department":"PE","Description":"test"},{"Name":"Solution Architect","Location":"Hyderabad","Department":"PE","Description":"test"},{"Name":"Lead tester","Location":"Hyderabad","Department":"QA","Description":"test"},{"Name":"Manager","Location":"Banglore","Department":"Testing","Description":"test"}]
