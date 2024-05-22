@@ -8,8 +8,8 @@ namespace EmployeeDirectory
         static void Main(string[] args)
         {
             ServiceCollection serviceCollection = new ServiceCollection();
-            serviceCollection.AddSingleton<IEmployeeService, Services.Employee>();
-            serviceCollection.AddSingleton<IRoleService, Services.Role>();
+            serviceCollection.AddSingleton<IEmployeeService, Services.EmployeeService>();
+            serviceCollection.AddSingleton<IRoleService, Services.RoleService>();
             serviceCollection.AddSingleton<IMenuManager, Menu>();
 
             ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();

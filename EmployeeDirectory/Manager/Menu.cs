@@ -128,7 +128,7 @@ namespace EmployeeDirectory.Manager
                 switch (selectedOption)
                 {
                     case 1:
-                        _roleService.GetDetails();
+                        _roleService.GetRoles();
                         break;
                     case 2:
                         _roleService.DisplayRoles();

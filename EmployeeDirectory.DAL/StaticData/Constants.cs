@@ -1,6 +1,5 @@
 ﻿using EmployeeDirectory.DAL.Models;
 using System.Text.Json;
-using EmployeeDirectory.DAL.Data;
 namespace EmployeeDirectory.DAL.StaticData
 {
     public static class Constants

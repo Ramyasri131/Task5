@@ -6,7 +6,7 @@ using EmployeeDirectory.DAL.Data;
 
 namespace EmployeeDirectory.BAL.Providers
 {
-    public static class Employee
+    public static class EmployeeProvider
     {
         public static void AddEmployee(DTO.Employee employee)
         {
@@ -32,7 +32,7 @@ namespace EmployeeDirectory.BAL.Providers
                 Project = employee.Project,
             };
             employees.Add(user);
-            UpdateData.WriteEmployeeData(employees);
+            UpdateData.UpdateEmployeeData(employees);
         }
 
         public static List<DAL.Models.Employee> GetEmployees()
@@ -82,7 +82,7 @@ namespace EmployeeDirectory.BAL.Providers
             {
                 employee.MobileNumber = long.Parse(selectedData);
             }
-            UpdateData.WriteEmployeeData(employees);
+            UpdateData.UpdateEmployeeData(employees);
         }
 
         public static void DeleteEmployee(string? id)
@@ -91,7 +91,7 @@ namespace EmployeeDirectory.BAL.Providers
             employees = FetchData.GetEmployeeDetails();
             DAL.Models.Employee? employee = GetEmployeeById(id);
             employees.RemoveAll(emp => emp.Id == employee.Id);
-            UpdateData.WriteEmployeeData(employees);
+            UpdateData.UpdateEmployeeData(employees);
         }
 
         public static DAL.Models.Employee GetEmployeeById(string? id)

@@ -1,5 +1,4 @@
-﻿using EmployeeDirectory.DAL.Extensions;
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace EmployeeDirectory.DAL.Data
 {
@@ -14,14 +13,7 @@ namespace EmployeeDirectory.DAL.Data
         public static List<Models.Role> GetRoleDetails()
         {
             string roleJsonData = File.ReadAllText("C:\\Workspace\\Tasks\\CSharpCloneCopy\\Task5\\EmployeeDirectory.DAL\\StaticData\\Role.json");
-            if (roleJsonData.IsNullOrEmptyOrWhiteSpace())
-            {
-                return new List<Models.Role>();
-            }
-            else
-            {
                 return JsonSerializer.Deserialize<List<Models.Role>>(roleJsonData)!;
-            }
         }
     }
 }

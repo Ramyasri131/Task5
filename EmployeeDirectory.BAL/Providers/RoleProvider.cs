@@ -5,7 +5,7 @@ using EmployeeDirectory.DAL.Exceptions;
 
 namespace EmployeeDirectory.BAL.Providers
 {
-    public static class Role
+    public static class RoleProvider
     {
         public static void AddRole(DAL.Models.Role roleInput)
         {
@@ -23,12 +23,11 @@ namespace EmployeeDirectory.BAL.Providers
                 }
             }
             inputRoleData.Add(roleInput);
-            UpdateData.WriteRoleData(inputRoleData);
+            UpdateData.UpdateRoleData(inputRoleData);
         }
 
         public static List<DAL.Models.Role> GetRoles()
         {
-
             List < DAL.Models.Role > roles= FetchData.GetRoleDetails();
             if(roles.Count==0)
             {

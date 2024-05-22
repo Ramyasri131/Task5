@@ -6,7 +6,7 @@ using EmployeeDirectory.Interfaces;
 
 namespace EmployeeDirectory.Services
 {
-    public class Employee: IEmployeeService
+    public class EmployeeService: IEmployeeService
     {
         public void GetEmployeeInput()
         {
@@ -49,7 +49,7 @@ namespace EmployeeDirectory.Services
             List<string> InvalidInputs = EmployeeValidator.ValidateDetails(employeeInput);
             if (InvalidInputs.Count == 0)
             {
-               BAL.Providers.Employee.AddEmployee(employeeInput);
+               BAL.Providers.EmployeeProvider.AddEmployee(employeeInput);
             }
             else
             {
@@ -65,8 +65,8 @@ namespace EmployeeDirectory.Services
         {
             try
             {
-                List<DAL.Models.Employee> employeeData = BAL.Providers.Employee.GetEmployees();
-                DisplayData.PrintEmployeesData(employeeData);
+                List<DAL.Models.Employee> employeeData = BAL.Providers.EmployeeProvider.GetEmployees();
+                Display.PrintEmployeesData(employeeData);
             }
             catch (RecordNotFound)
             {
@@ -80,8 +80,8 @@ namespace EmployeeDirectory.Services
             string? id = Console.ReadLine();
             try
             {
-                DAL.Models.Employee employeeData = BAL.Providers.Employee.GetEmployeeById(id);
-                DisplayData.PrintEmployeeData(employeeData);
+                DAL.Models.Employee employeeData = BAL.Providers.EmployeeProvider.GetEmployeeById(id);
+                Display.PrintEmployeeData(employeeData);
             }
             catch (RecordNotFound)
             {
@@ -130,7 +130,7 @@ namespace EmployeeDirectory.Services
                 {
                     selectedData = GetValidDetails(label);
                 }
-                 BAL.Providers.Employee.EditEmployeeDetails(selectedData, id, selectedOption);
+                 BAL.Providers.EmployeeProvider.EditEmployeeDetails(selectedData, id, selectedOption);
             }
             catch (BAL.Exceptions.InvalidData)
             {
@@ -187,7 +187,7 @@ namespace EmployeeDirectory.Services
             string? enteredEmpId = Console.ReadLine();
             try
             {
-                BAL.Providers.Employee.DeleteEmployee(enteredEmpId);
+                BAL.Providers.EmployeeProvider.DeleteEmployee(enteredEmpId);
             }
             catch (RecordNotFound)
             {

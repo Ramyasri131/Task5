@@ -6,9 +6,9 @@ using System.Text.Json;
 
 namespace EmployeeDirectory.Services
 {
-    public class Role:IRoleService
+    public class RoleService:IRoleService
     {
-        public  void GetDetails()
+        public  void GetRoles()
         {
             Display.Print("Enter RoleName");
             string? roleName = Console.ReadLine();
@@ -28,7 +28,7 @@ namespace EmployeeDirectory.Services
                     Department = department,
                     Description = description
                 };
-                BAL.Providers.Role.AddRole(roleInput);
+                BAL.Providers.RoleProvider.AddRole(roleInput);
             }
             catch (FormatException)
             {
@@ -66,8 +66,8 @@ namespace EmployeeDirectory.Services
             List<DAL.Models.Role>? roleData;
             try
             {
-                roleData = BAL.Providers.Role.GetRoles();
-                DisplayData.PrintRoleData(roleData);
+                roleData = BAL.Providers.RoleProvider.GetRoles();
+                Display.PrintRoleData(roleData);
             }
             catch(RecordNotFound)
             {
